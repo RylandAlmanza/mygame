@@ -40,40 +40,40 @@ struct coord_list select_hex(int center_x, int center_y, int radius) {
     hex.coords[current_index] = selection;
     current_index++;
     for (i = 1; i < radius + 1; i++) {
-        selection = add_coords(selection, delta(NW, selection.y % 2));
+        selection = nw_of(selection);
         hex.coords[current_index] = selection;
         current_index++;
         for (j = 0; j < i; j++) {
-            selection = add_coords(selection, delta(E, selection.y % 2));
+            selection = e_of(selection);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = add_coords(selection, delta(SE, selection.y % 2));
+            selection = se_of(selection);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = add_coords(selection, delta(SW, selection.y % 2));
+            selection = sw_of(selection);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = add_coords(selection, delta(W, selection.y % 2));
+            selection = w_of(selection);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = add_coords(selection, delta(NW, selection.y % 2));
+            selection = nw_of(selection);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i - 1; j++) {
-            selection = add_coords(selection, delta(NE, selection.y % 2));
+            selection = ne_of(selection);
             hex.coords[current_index] = selection;
             current_index++;
         }
-	selection = add_coords(selection, delta(NE, selection.y % 2));
+	selection = ne_of(selection);
     }
     return hex;
 }

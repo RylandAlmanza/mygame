@@ -29,8 +29,10 @@ int draw_world() {
         for (i = 0; i < MAP_SIZE; i++) {
             struct coord world_coord = {i, j};
             struct coord pos = world_coord_to_screen_coord(world_coord);
+            struct coord ppos = world_coord_to_screen_coord(new_coord(p.x, p.y));
             mvwaddch(world_window, pos.y, pos.x,
                      terrain_char(map_terrain[j][i]));
+            mvwaddch(world_window, ppos.y, ppos.x, '@');
         }
     }
 }
