@@ -2,9 +2,9 @@
 #include <string.h>
 
 int main() {
-    strcpy(p.name, "dude");
-    p.x = 3;
-    p.y = 3;
+    strcpy(p.name, "dude"); // For now, the player is always named "dude"
+    p.x = 11;
+    p.y = 11;
     gen_map();
     display_init();
     draw_world();

@@ -1,11 +1,16 @@
 #include "mygame.h"
 #include <stdlib.h>
 
+// Function to create coordinate structs
 struct coord new_coord(x, y) {
     struct coord c = {x, y};
     return c;
 }
 
+/* Given a direction (NW, NE, E, SE, SW, or W,) and whether or not the row
+ * index of the coordinate is odd, this function will determine what the x and
+ * y deltas towards the given direction are.
+ */
 struct coord delta(enum direction_num direction, int row_number_odd) {
     switch (direction) {
           case NW:
@@ -23,10 +28,14 @@ struct coord delta(enum direction_num direction, int row_number_odd) {
     }
 }
 
+// Adds two coordinates together.
 struct coord add_coords(struct coord c1, struct coord c2) {
     return new_coord(c1.x + c2.x, c1.y + c2.y);
 }
 
+/* This function returns a list of all coordinates which lie inside the hexagon
+ * defined by it's center coordinate, and it's radius
+ */
 struct coord_list select_hex(int center_x, int center_y, int radius) {
     struct coord_list hex;
     int i, j;
