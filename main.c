@@ -9,6 +9,9 @@ int main() {
     display_init();
     draw_world();
     refresh();
-    get_command();
+    int game_done = 0;
+    while (!game_done) {
+        game_done = get_command();
+    }
     display_uninit();
 }

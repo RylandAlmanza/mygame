@@ -42,9 +42,10 @@ int display_init() {
     noecho();
     cbreak();
     start_color();
+    curs_set(0);
     init_pair(1, COLOR_WHITE, COLOR_BLACK);
 
-    world_window = newwin(20, 20, 0, 0);
+    world_window = newwin(24, 80, 0, 0);
     wclear(world_window);
     scrollok(world_window, FALSE);
 
@@ -56,10 +57,36 @@ int display_init() {
 int display_uninit() {
     clear();
     wrefresh(world_window);
+    curs_set(1);
     endwin();
     return 0;
 }
 
 int get_command() {
-    wgetch(world_window);
+    char ch = wgetch(world_window);
+    switch (ch) {
+        case 'y':
+            move_player(NW);
+            break;
+        case 'u':
+            move_player(NE);
+            break;
+        case 'l':
+            move_player(E);
+            break;
+        case 'n':
+            move_player(SE);
+            break;
+        case 'b':
+            move_player(SW);
+            break;
+        case 'h':
+            move_player(W);
+            break;
+        case 'q':
+            return 1;
+    }
+    draw_world();
+    refresh();
+    return 0;
 }

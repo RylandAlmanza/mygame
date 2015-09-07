@@ -8,7 +8,7 @@ int gen_map() {
             map_terrain[j][i] = WALL;
         }
     }
-    struct coord_list hex = select_hex(3, 3, 2);
+    struct coord_list hex = select_hex(11, 11, 10);
     for (i = 0; i < hex.length; i++) {
         map_terrain[hex.coords[i].y][hex.coords[i].x] = FLOOR;
     }

@@ -1,7 +1,7 @@
 #ifndef MYGAME_H
 #define MYGAME_H
 
-#define MAP_SIZE 10
+#define MAP_SIZE 23
 #define nw_of(coord) add_coords(coord, delta(NW, coord.y % 2))
 #define ne_of(coord) add_coords(coord, delta(NE, coord.y % 2))
 #define e_of(coord) add_coords(coord, delta(E, coord.y % 2))
@@ -37,7 +37,11 @@ W = 2,            E = 3,
     SW = 4, SE = 5
 };
 
+int move_player(enum direction_num direction);
+
 struct coord new_coord(int x, int y);
+struct coord add_coords(struct coord c1, struct coord c2);
+struct coord delta(enum direction_num direction, int row_number_odd);
 struct coord_list select_hex(int center_x, int center_y, int radius);
 
 #endif
