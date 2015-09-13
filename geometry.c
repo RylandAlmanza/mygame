@@ -11,7 +11,7 @@ struct coord new_coord(x, y) {
  * index of the coordinate is odd, this function will determine what the x and
  * y deltas towards the given direction are.
  */
-struct coord delta(enum direction_num direction, int row_number_odd) {
+struct coord delta(enum direction direction, int row_number_odd) {
     switch (direction) {
           case NW:
               return new_coord(row_number_odd ? -1 : 0, -1);
@@ -49,40 +49,40 @@ struct coord_list select_hex(int center_x, int center_y, int radius) {
     hex.coords[current_index] = selection;
     current_index++;
     for (i = 1; i < radius + 1; i++) {
-        selection = nw_of(selection);
+        selection = nw_of(selection.x, selection.y);
         hex.coords[current_index] = selection;
         current_index++;
         for (j = 0; j < i; j++) {
-            selection = e_of(selection);
+            selection = e_of(selection.x, selection.y);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = se_of(selection);
+            selection = se_of(selection.x, selection.y);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = sw_of(selection);
+            selection = sw_of(selection.x, selection.y);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = w_of(selection);
+            selection = w_of(selection.x, selection.y);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i; j++) {
-            selection = nw_of(selection);
+            selection = nw_of(selection.x, selection.y);
             hex.coords[current_index] = selection;
             current_index++;
         }
         for (j = 0; j < i - 1; j++) {
-            selection = ne_of(selection);
+            selection = ne_of(selection.x, selection.y);
             hex.coords[current_index] = selection;
             current_index++;
         }
-	selection = ne_of(selection);
+	selection = ne_of(selection.x, selection.y);
     }
     return hex;
 }

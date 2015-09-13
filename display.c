@@ -26,6 +26,15 @@ static int terrain_char(enum terrain_num terrain_type) {
             return '#';
         case FLOOR:
             return '.';
+        case DOOR:
+            return '+';
+    }
+}
+
+static int npc_char(enum npc_type_name npc_type) {
+    switch (npc_type) {
+        case WOODSMAN:
+            return '@';
     }
 }
 
@@ -37,12 +46,15 @@ int draw_world() {
         for (i = 0; i < MAP_SIZE; i++) {
             struct coord world_coord = {i, j};
             struct coord pos = world_coord_to_screen_coord(world_coord);
-            struct coord ppos = world_coord_to_screen_coord(new_coord(p.x, p.y));
             mvwaddch(world_window, pos.y, pos.x,
                      terrain_char(map_terrain[j][i]));
-            mvwaddch(world_window, ppos.y, ppos.x, '@');
+            if (map_npcs[j][i] != -1) {
+                mvwaddch(world_window, pos.y, pos.x, npc_char(map_npcs[j][i]));
+            }
         }
     }
+    struct coord ppos = world_coord_to_screen_coord(new_coord(player.x, player.y));
+    mvwaddch(world_window, ppos.y, ppos.x, '@');
 }
 
 // Initialize ncurses stuff
@@ -75,29 +87,42 @@ int display_uninit() {
 // Process user input. Perhaps I should rename this file "interface.c"
 int get_command() {
     char ch = wgetch(world_window);
+    enum direction direction;
+    enum command command;
     switch (ch) {
         case 'y':
-            move_player(NW);
+            direction = NW;
+            command = MOVE;
             break;
         case 'u':
-            move_player(NE);
+            direction = NE;
+            command = MOVE;
             break;
         case 'l':
-            move_player(E);
+            direction = E;
+            command = MOVE;
             break;
         case 'n':
-            move_player(SE);
+            direction = SE;
+            command = MOVE;
             break;
         case 'b':
-            move_player(SW);
+            direction = SW;
+            command = MOVE;
             break;
         case 'h':
-            move_player(W);
+            direction = W;
+            command = MOVE;
             break;
         case 'q':
             return 1;
     }
-    draw_world();
-    refresh();
+    if (command == MOVE) {
+        struct coord destination = adjacent_coord(player.x, player.y,
+                                                            direction);
+        if (npc_can_pass(destination.x, destination.y)) {
+            move_player(destination.x, destination.y);
+        }
+    }
     return 0;
 }
