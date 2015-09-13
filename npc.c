@@ -23,7 +23,7 @@ int npc_can_pass(int x, int y) {
     if (map_npcs[y][x] != -1) {
         return 0;
     }
-    if (map_terrain[y][x] == WALL) {
+    if (map_terrain[y][x] == WALL || map_terrain[y][x] == TREE) {
         return 0;
     }
     if (player.x == x && player.y == y) {

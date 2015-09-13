@@ -28,6 +28,8 @@ static int terrain_char(enum terrain_num terrain_type) {
             return '.';
         case DOOR:
             return '+';
+        case TREE:
+            return 'T';
     }
 }
 

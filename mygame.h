@@ -43,7 +43,7 @@ int map_terrain[MAP_SIZE][MAP_SIZE];
 int map_npcs[MAP_SIZE][MAP_SIZE];
 
 enum terrain_num {
-    WALL, FLOOR, DOOR
+    WALL, FLOOR, DOOR, TREE
 };
 
 struct coord {

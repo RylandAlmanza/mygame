@@ -50,6 +50,9 @@ int load_map() {
         if (c == '+') {
             map_terrain[y][x] = DOOR;
         }
+        if (c == 'T') {
+            map_terrain[y][x] = TREE;
+        }
         map_npcs[y][x] = -1;
         if (y == 12 && x == 12) {
             map_npcs[y][x] = create_npc(WOODSMAN, x, y);
