@@ -27,6 +27,7 @@ enum npc_type_name {
 
 struct npc_type {
     char name[20];
+    char greeting_response[300];
 };
 
 struct npc_type npc_types[1];
@@ -35,6 +36,7 @@ struct npc {
     enum npc_type_name type_name;
     bool used;
     int x, y;
+    int is_friend;
 };
 
 struct npc npcs[MAX_NPCS];
@@ -62,7 +64,7 @@ W = 2,            E = 3,
 };
 
 enum command {
-    MOVE
+    NO_COMMAND, MOVE, GREET
 };
 
 int move_player(int x, int y);

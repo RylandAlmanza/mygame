@@ -2,6 +2,7 @@
 #include <ncurses.h>
 
 WINDOW *world_window; // This window will be the view of the game world
+WINDOW *message_window;
 
 /* To store the hexagonal map, I am using the "Zigzagged axis" method described
  * on this page: http://www.roguebasin.com/index.php?title=Hexagonal_Tiles.
@@ -68,12 +69,23 @@ int display_init() {
     curs_set(0);
     init_pair(1, COLOR_WHITE, COLOR_BLACK);
 
-    world_window = newwin(24, 80, 0, 0);
+    world_window = newwin(24, 48, 0, 0);
+    message_window = newwin(24, 32, 0, 48);
     wclear(world_window);
+    wclear(message_window);
     scrollok(world_window, FALSE);
+    scrollok(message_window, TRUE);
 
     idcok(world_window, FALSE);
+    idcok(message_window, FALSE);
 
+    return 0;
+}
+
+int print_message(char *message) {
+    wclear(message_window);
+    wprintw(message_window, message, 0, 0);
+    wrefresh(message_window);
     return 0;
 }
 
@@ -81,6 +93,7 @@ int display_init() {
 int display_uninit() {
     clear();
     wrefresh(world_window);
+    wrefresh(message_window);
     curs_set(1);
     endwin();
     return 0;
@@ -115,6 +128,10 @@ int get_command() {
         case 'h':
             direction = W;
             command = MOVE;
+            break;
+        case 't':
+            command = GREET;
+            print_message("In which direction is the being you'd like to speak with?");
             break;
         case 'q':
             return 1;
